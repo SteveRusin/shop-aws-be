@@ -18,18 +18,28 @@ const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
       });
     }
 
-    const product = await findProductById(id);
+    try {
+      const product = await findProductById(id);
 
-    if (!product) {
+      if (!product) {
+        return formatErrorResponse({
+          errorMessage: `product with id: ${id} not exist`,
+          statusCode: 404,
+        });
+      }
+
+      return formatJSONResponse({
+        data: product,
+      });
+    } catch (e) {
+      const message = `Something went wrong when looking for product: ${id}`;
+      console.log(message, e);
+
       return formatErrorResponse({
-        errorMessage: `product with id: ${id} not exist`,
-        statusCode: 404,
+        errorMessage: `Something went wrong when looking for product: ${id}`,
+        statusCode: 400,
       });
     }
-
-    return formatJSONResponse({
-      data: product,
-    });
   };
 
 export const main = middyfy(getProductsById);
