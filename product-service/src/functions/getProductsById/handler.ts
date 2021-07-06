@@ -9,7 +9,7 @@ import { findProductById } from "../../db";
 
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
   async (event) => {
-    const id = parseInt(event.queryStringParameters.productId);
+    const id = parseInt(event.pathParameters.productId);
 
     if (Number.isNaN(id)) {
       return formatErrorResponse({
