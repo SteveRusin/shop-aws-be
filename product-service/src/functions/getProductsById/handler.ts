@@ -36,7 +36,7 @@ const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
       console.log(message, e);
 
       return formatErrorResponse({
-        errorMessage: `Something went wrong when looking for product: ${id}`,
+        errorMessage: message,
         statusCode: 400,
       });
     }
