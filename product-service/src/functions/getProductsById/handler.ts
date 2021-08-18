@@ -1,26 +1,13 @@
 import "source-map-support/register";
 
-import { Client, ClientConfig } from "pg";
+import { Client } from "pg";
 
 import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/apiGateway";
 import { formatJSONResponse, formatErrorResponse } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
+import { CONFIG } from '../../db/connect.config';
 
 import schema from "./schema";
-
-const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } = process.env;
-
-const config: ClientConfig = {
-  host: PG_HOST,
-  database: PG_DATABASE,
-  password: PG_PASSWORD,
-  user: PG_USERNAME,
-  port: +PG_PORT,
-  connectionTimeoutMillis: 20_000,
-  ssl: {
-    rejectUnauthorized: false,
-  }
-};
 
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
   async (event) => {
@@ -36,7 +23,7 @@ const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
     let client: Client;
 
     try {
-      client = new Client(config);
+      client = new Client(CONFIG);
 
       console.log("connecting to db client");
       await client.connect();
