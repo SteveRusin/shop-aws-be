@@ -13,8 +13,10 @@
     "@middy/core": "^1.5.2",
     "@middy/http-cors": "^2.4.3",
     "@middy/http-json-body-parser": "^1.5.2",
+    "@types/pg": "^8.6.1",
     "aws-sdk": "^2.973.0",
     "csv-parser": "^3.0.0",
+    "pg": "^8.7.1",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
