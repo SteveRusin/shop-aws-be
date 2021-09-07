@@ -56,7 +56,7 @@ const serverlessConfiguration: AWS = {
         Effect: "Allow",
         Action: "sns:*",
         Resource: {
-          Ref: 'SNSTopic'
+          Ref: "SNSTopic",
         },
       },
     ],
@@ -65,6 +65,21 @@ const serverlessConfiguration: AWS = {
   functions: { importProductsFile, importFileParser, catalogBatchProcess },
   resources: {
     Resources: {
+      GatewayResponseDefault4XX: {
+        Type: "AWS::ApiGateway::GatewayResponse",
+        Properties: {
+          ResponseParameters: {
+            "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+            "gatewayresponse.header.Access-Control-Allow-Headers":
+              "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+            "gatewayresponse.header.Access-Control-Allow-Methods": "'*'",
+          },
+          ResponseType: "DEFAULT_4XX",
+          RestApiId: {
+            Ref: "ApiGatewayRestApi",
+          },
+        },
+      },
       SQSQueue: {
         Type: "AWS::SQS::Queue",
         Properties: {
