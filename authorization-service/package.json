@@ -1,5 +1,5 @@
 {
-  "name": "import-service",
+  "name": "authorization-service",
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
@@ -17,6 +17,7 @@
     "aws-sdk": "^2.973.0",
     "csv-parser": "^3.0.0",
     "pg": "^8.7.1",
+    "serverless-dotenv-plugin": "^3.9.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
